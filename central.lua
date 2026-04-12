@@ -362,6 +362,7 @@ function Library:Window(options)
                 sectionFrame.Parent = newPage
                 sectionFrame.BackgroundColor3 = Color3.fromRGB(0, 15, 30)
                 sectionFrame.BorderSizePixel = 0
+                sectionFrame.ClipsDescendants = false
                 sectionFrame.Size = UDim2.new(0, 215, 0, 134)
 
                 sectionLabel.Name = "sectionLabel"
@@ -681,7 +682,7 @@ function Library:Window(options)
                     local dropdownLabel = Instance.new("TextLabel")
                     local dropdownText = Instance.new("TextLabel")
                     local dropdownArrow = Instance.new("ImageButton")
-                    local dropdownList = Instance.new("Frame")
+                    local dropdownList = Instance.new("ScrollingFrame")
 
                     local dropListLayout = Instance.new("UIListLayout")
                     buttoneffect({frame = dropdownLabel, entered = Dropdown})
@@ -738,8 +739,11 @@ function Library:Window(options)
                                     TextColor3 = Color3.fromRGB(234, 239, 246)
                                 }):Play()
                             end
+                            local MaxHeight = (Body.AbsolutePosition.Y + Body.AbsoluteSize.Y) - dropdownList.AbsolutePosition.Y - 5
+                            local TargetHeight = math.min(DropYSize, MaxHeight)
+                            
                             TweenService:Create(dropdownList, TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-                                Size = UDim2.new(0, 87, 0, DropYSize)
+                                Size = UDim2.new(0, 87, 0, TargetHeight)
                             }):Play()
                             TweenService:Create(dropdownList, TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
                                 BorderSizePixel = 1
@@ -767,6 +771,9 @@ function Library:Window(options)
                     dropdownList.ClipsDescendants = true
                     dropdownList.BorderSizePixel = 0
                     dropdownList.ZIndex = 10
+                    dropdownList.ScrollBarThickness = 3
+                    dropdownList.CanvasSize = UDim2.new(0, 0, 0, 0)
+                    dropdownList.ScrollBarImageColor3 = Color3.fromRGB(43, 154, 198)
 
                     dropListLayout.Name = "dropListLayout"
                     dropListLayout.Parent = dropdownList
@@ -801,6 +808,7 @@ function Library:Window(options)
                             options.callback(v)
                         end)
                     end
+                    dropdownList.CanvasSize = UDim2.new(0, 0, 0, DropYSize)
                 end
 
                 function elements:Textbox(options)
