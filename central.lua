@@ -5,6 +5,12 @@ local NeverloseVersion = "v1.1A."
 local TweenService = game:GetService("TweenService")
 local input = game:GetService("UserInputService")
 
+for i,v in next, game.CoreGui:GetChildren() do
+    if v:IsA("ScreenGui") and v.Name == "Neverlose" then
+        v:Destroy() 
+    end
+end
+
 local Theme = {
     Background = Color3.fromRGB(11, 11, 15),
     SideBar = Color3.fromRGB(14, 15, 20),
@@ -95,9 +101,10 @@ local function clickEffect(options)
 end
 
 function Library:Toggle(value)
-    if game:GetServer("CoreGui"):FindFirstChild("Neverlose") == nil then return end
-    enabled = (type(value) == "boolean" and value) or game:GetServer("CoreGui"):FindFirstChild("Neverlose").Enabled
-    game:GetServer("CoreGui"):FindFirstChild("Neverlose").Enabled = not enabled
+    if game:GetService("CoreGui"):FindFirstChild("Neverlose") == nil then return end
+    local NeverloseGui = game:GetService("CoreGui"):FindFirstChild("Neverlose")
+    local enabled = (type(value) == "boolean" and value) or NeverloseGui.Enabled
+    NeverloseGui.Enabled = not enabled
 end
 
 function Library:Window(options)
@@ -176,10 +183,10 @@ function Library:Window(options)
 
     tbLine.Name = "tbLine"
     tbLine.Parent = TopBar
-    tbLine.BackgroundColor3 = Color3.fromRGB(15, 23, 36)
+    tbLine.BackgroundColor3 = Theme.Border
     tbLine.BorderSizePixel = 0
-    tbLine.Position = UDim2.new(0.0400355868, 0, 1, 0)
-    tbLine.Size = UDim2.new(0, 469, 0, 3)
+    tbLine.Position = UDim2.new(0, 0, 1, -1)
+    tbLine.Size = UDim2.new(1, 0, 0, 1)
 
     Title.Name = "Title"
     Title.Parent = SideBar
@@ -191,6 +198,7 @@ function Library:Window(options)
     Title.Text = options.text
     Title.TextColor3 = Theme.Accent
     Title.TextSize = 22.000
+    Title.TextXAlignment = Enum.TextXAlignment.Center
 
     --[[saveBtn.Name = "saveBtn"
     saveBtn.Parent = TopBar
@@ -425,10 +433,10 @@ function Library:Window(options)
 
                 sLine.Name = "sLine"
                 sLine.Parent = sectionFrame
-                sLine.BackgroundColor3 = Color3.fromRGB(13, 28, 44)
+                sLine.BackgroundColor3 = Theme.Border
                 sLine.BorderSizePixel = 0
-                sLine.Position = UDim2.new(0.0255813953, 0, 0.41538462, 0)
-                sLine.Size = UDim2.new(0, 202, 0, 3)
+                sLine.Position = UDim2.new(0, 0, 0, 25)
+                sLine.Size = UDim2.new(1, 0, 0, 1)
                 sLine.Font = Enum.Font.SourceSans
                 sLine.Text = ""
                 sLine.TextColor3 = Color3.fromRGB(0, 0, 0)
