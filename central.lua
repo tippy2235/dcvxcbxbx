@@ -734,6 +734,7 @@ function Library:Window(options)
                     dropdownArrow.MouseButton1Click:Connect(function()
                         Dropped = not Dropped
                         if Dropped then
+                            Dropdown.ZIndex = 5
                             if dropdownLabel.TextColor3 ~= Color3.fromRGB(234, 239, 245) then
                                 TweenService:Create(dropdownLabel, TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
                                     TextColor3 = Color3.fromRGB(234, 239, 246)
@@ -749,6 +750,7 @@ function Library:Window(options)
                                 BorderSizePixel = 1
                             }):Play()
                         elseif not Dropped then
+                            Dropdown.ZIndex = 2
                             if dropdownLabel.TextColor3 ~= Color3.fromRGB(157, 171, 182) then
                                 TweenService:Create(dropdownLabel, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
                                     TextColor3 = Color3.fromRGB(157, 171, 182)
@@ -769,39 +771,42 @@ function Library:Window(options)
                     dropdownList.Position = UDim2.new(0, 0, 1, 0)
                     dropdownList.Size = UDim2.new(0, 87, 0, 0)
                     dropdownList.ClipsDescendants = true
-                    dropdownList.BorderSizePixel = 0
-                    dropdownList.ZIndex = 10
-                    dropdownList.ScrollBarThickness = 3
+                    dropdownList.BorderSizePixel = 1
+                    dropdownList.BorderColor3 = Color3.fromRGB(25, 35, 45)
+                    dropdownList.ZIndex = 100
+                    dropdownList.Active = true
+                    dropdownList.ScrollBarThickness = 4
                     dropdownList.CanvasSize = UDim2.new(0, 0, 0, 0)
                     dropdownList.ScrollBarImageColor3 = Color3.fromRGB(43, 154, 198)
 
                     dropListLayout.Name = "dropListLayout"
                     dropListLayout.Parent = dropdownList
                     dropListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                    dropListLayout.Padding = UDim.new(0, 2)
                     Resize(25)
 
                     for i,v in next, options.list do
                         local dropdownBtn = Instance.new("TextButton")
-                        local Count = 1
 
                         dropdownBtn.Name = "dropdownBtn"
                         dropdownBtn.Parent = dropdownList
                         dropdownBtn.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
                         dropdownBtn.BackgroundTransparency = 1.000
                         dropdownBtn.BorderSizePixel = 0
-                        dropdownBtn.Position = UDim2.new(-0.0110929646, 0, 0.0305557251, 0)
                         dropdownBtn.Size = UDim2.new(0, 87, 0, 18)
                         dropdownBtn.AutoButtonColor = false
                         dropdownBtn.Font = Enum.Font.Gotham
                         dropdownBtn.TextColor3 = Color3.fromRGB(234, 239, 245)
                         dropdownBtn.TextSize = 12.000
-                        dropdownBtn.Text = v
-                        dropdownBtn.ZIndex = 15
+                        dropdownBtn.Text = "  " .. v
+                        dropdownBtn.TextXAlignment = Enum.TextXAlignment.Left
+                        dropdownBtn.ZIndex = 105
+                        dropdownBtn.TextWrapped = false
+                        dropdownBtn.ClipsDescendants = true
+                        buttoneffect({frame = dropdownBtn, entered = dropdownBtn})
                         clickEffect({button = dropdownBtn, amount = 5})
 
-                        Count = Count + 1
-                        dropdownList.ZIndex -= Count
-                        DropYSize = DropYSize + 18
+                        DropYSize = DropYSize + 20
 
                         dropdownBtn.MouseButton1Click:Connect(function()
                             dropdownText.Text = " " .. v
