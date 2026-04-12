@@ -5,11 +5,15 @@ local NeverloseVersion = "v1.1A."
 local TweenService = game:GetService("TweenService")
 local input = game:GetService("UserInputService")
 
-for i,v in next, game.CoreGui:GetChildren() do
-    if v:IsA("ScreenGui") and v.Name == "Neverlose" then
-        v:Destroy() 
-    end
-end
+local Theme = {
+    Background = Color3.fromRGB(11, 11, 15),
+    SideBar = Color3.fromRGB(14, 15, 20),
+    Section = Color3.fromRGB(18, 19, 25),
+    Accent = Color3.fromRGB(38, 151, 255),
+    Border = Color3.fromRGB(35, 38, 48),
+    Text = Color3.fromRGB(160, 175, 190),
+    TextHigh = Color3.fromRGB(255, 255, 255)
+}
 
 local themouse = game.Players.LocalPlayer:GetMouse()
 
@@ -68,18 +72,14 @@ end
 local function buttoneffect(options)
     pcall(function()
         options.entered.MouseEnter:Connect(function()
-            if options.frame.TextColor3 ~= Color3.fromRGB(234, 239, 246) then
-                TweenService:Create(options.frame, TweenInfo.new(0.06, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
-                    TextColor3 = Color3.fromRGB(234, 239, 245)
-                }):Play()
-            end
+            TweenService:Create(options.frame, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                TextColor3 = Theme.TextHigh
+            }):Play()
         end)
         options.entered.MouseLeave:Connect(function()
-            if options.frame.TextColor3 ~= Color3.fromRGB(157, 171, 182) and options.frame.TextColor3 ~= Color3.fromRGB(234, 239, 246) then
-                TweenService:Create(options.frame, TweenInfo.new(0.06, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
-                    TextColor3 = Color3.fromRGB(157, 171, 182)
-                }):Play()
-            end
+            TweenService:Create(options.frame, TweenInfo.new(0.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                TextColor3 = Theme.Text
+            }):Play()
         end)
     end)
 end
@@ -127,40 +127,52 @@ function Library:Window(options)
     Body.Name = "Body"
     Body.Parent = SG
     Body.AnchorPoint = Vector2.new(0.5, 0.5)
-    Body.BackgroundColor3 = Color3.fromRGB(9, 8, 13)
+    Body.BackgroundColor3 = Theme.Background
     Body.BorderSizePixel = 0
-    Body.Position = UDim2.new(0.465730786, 0, 0.5, 0)
-    Body.Size = UDim2.new(0, 658, 0, 516)
+    Body.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Body.Size = UDim2.new(0, 650, 0, 500)
 
-    bodyCorner.CornerRadius = UDim.new(0, 4)
+    bodyCorner.CornerRadius = UDim.new(0, 8)
     bodyCorner.Name = "bodyCorner"
     bodyCorner.Parent = Body
 
+    local bodyStroke = Instance.new("UIStroke")
+    bodyStroke.Color = Theme.Border
+    bodyStroke.Thickness = 1.5
+    bodyStroke.Parent = Body
+
     SideBar.Name = "SideBar"
     SideBar.Parent = Body
-    SideBar.BackgroundColor3 = Color3.fromRGB(26, 36, 48)
+    SideBar.BackgroundColor3 = Theme.SideBar
     SideBar.BorderSizePixel = 0
-    SideBar.Size = UDim2.new(0, 187, 0, 516)
+    SideBar.Size = UDim2.new(0, 180, 1, 0)
 
-    sidebarCorner.CornerRadius = UDim.new(0, 4)
+    sidebarCorner.CornerRadius = UDim.new(0, 8)
     sidebarCorner.Name = "sidebarCorner"
     sidebarCorner.Parent = SideBar
+    
+    local sbClip = Instance.new("Frame")
+    sbClip.Name = "sbClip"
+    sbClip.Parent = SideBar
+    sbClip.BackgroundColor3 = Theme.SideBar
+    sbClip.BorderSizePixel = 0
+    sbClip.Position = UDim2.new(1, -10, 0, 0)
+    sbClip.Size = UDim2.new(0, 10, 1, 0)
 
     sbLine.Name = "sbLine"
     sbLine.Parent = SideBar
-    sbLine.BackgroundColor3 = Color3.fromRGB(15, 23, 36)
+    sbLine.BackgroundColor3 = Theme.Border
     sbLine.BorderSizePixel = 0
-    sbLine.Position = UDim2.new(0.99490571, 0, 0, 0)
-    sbLine.Size = UDim2.new(0, 3, 0, 516)
+    sbLine.Position = UDim2.new(1, 0, 0, 0)
+    sbLine.Size = UDim2.new(0, 1, 1, 0)
 
     TopBar.Name = "TopBar"
     TopBar.Parent = Body
-    TopBar.BackgroundColor3 = Color3.fromRGB(9, 8, 13)
+    TopBar.BackgroundColor3 = Theme.Background
     TopBar.BackgroundTransparency = 1.000
-    TopBar.BorderColor3 = Color3.fromRGB(14, 21, 32)
     TopBar.BorderSizePixel = 0
-    TopBar.Position = UDim2.new(0.25166446, 0, 0, 0)
-    TopBar.Size = UDim2.new(0, 562, 0, 49)
+    TopBar.Position = UDim2.new(0, 180, 0, 0)
+    TopBar.Size = UDim2.new(1, -180, 0, 50)
 
     tbLine.Name = "tbLine"
     tbLine.Parent = TopBar
@@ -171,16 +183,14 @@ function Library:Window(options)
 
     Title.Name = "Title"
     Title.Parent = SideBar
-    Title.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
     Title.BackgroundTransparency = 1.000
     Title.BorderSizePixel = 0
-    Title.Position = UDim2.new(0.0614973232, 0, 0.0213178284, 0)
-    Title.Size = UDim2.new(0, 162, 0, 26)
-    Title.Font = Enum.Font.ArialBold
+    Title.Position = UDim2.new(0, 0, 0, 15)
+    Title.Size = UDim2.new(1, 0, 0, 30)
+    Title.Font = Enum.Font.GothamBold
     Title.Text = options.text
-    Title.TextColor3 = Color3.fromRGB(234, 239, 245)
-    Title.TextSize = 28.000
-    Title.TextWrapped = true
+    Title.TextColor3 = Theme.Accent
+    Title.TextSize = 22.000
 
     --[[saveBtn.Name = "saveBtn"
     saveBtn.Parent = TopBar
@@ -250,18 +260,18 @@ function Library:Window(options)
         tabSectionLabel.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
         tabSectionLabel.BackgroundTransparency = 1.000
         tabSectionLabel.BorderSizePixel = 0
-        tabSectionLabel.Size = UDim2.new(0, 190, 0, 22)
-        tabSectionLabel.Font = Enum.Font.Gotham
-        tabSectionLabel.Text = "     ".. options.text
-        tabSectionLabel.TextColor3 = Color3.fromRGB(79, 107, 126)
-        tabSectionLabel.TextSize = 17.000
+        tabSectionLabel.Size = UDim2.new(1, 0, 0, 22)
+        tabSectionLabel.Font = Enum.Font.GothamBold
+        tabSectionLabel.Text = "    " .. options.text:upper()
+        tabSectionLabel.TextColor3 = Theme.Text:lerp(Color3.new(0,0,0), 0.2)
+        tabSectionLabel.TextSize = 12.000
         tabSectionLabel.TextXAlignment = Enum.TextXAlignment.Left
 
         tabSectionLayout.Name = "tabSectionLayout"
         tabSectionLayout.Parent = tabSection
         tabSectionLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
         tabSectionLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        tabSectionLayout.Padding = UDim.new(0, 7)
+        tabSectionLayout.Padding = UDim.new(0, 4)
 
         local tabs = {}
 
@@ -278,17 +288,26 @@ function Library:Window(options)
 
             tabButton.Name = "tabButton"
             tabButton.Parent = tabSection
-            tabButton.BackgroundColor3 = Color3.fromRGB(13, 57, 84)
+            tabButton.BackgroundColor3 = Theme.Accent
             tabButton.BorderSizePixel = 0
-            tabButton.Position = UDim2.new(0.0714285746, 0, 0.402777791, 0)
-            tabButton.Size = UDim2.new(0, 165, 0, 30)
+            tabButton.Size = UDim2.new(0, 160, 0, 32)
             tabButton.AutoButtonColor = false
             tabButton.Font = Enum.Font.GothamSemibold
-            tabButton.Text = "         " .. options.text
-            tabButton.TextColor3 = Color3.fromRGB(234, 239, 245)
-            tabButton.TextSize = 14.000
+            tabButton.Text = "          " .. options.text
+            tabButton.TextColor3 = Theme.Text
+            tabButton.TextSize = 13.000
             tabButton.BackgroundTransparency = 1
             tabButton.TextXAlignment = Enum.TextXAlignment.Left
+            
+            local tabIndicator = Instance.new("Frame")
+            tabIndicator.Name = "tabIndicator"
+            tabIndicator.Parent = tabButton
+            tabIndicator.BackgroundColor3 = Theme.Accent
+            tabIndicator.BorderSizePixel = 0
+            tabIndicator.Position = UDim2.new(0, 5, 0.5, -8)
+            tabIndicator.Size = UDim2.new(0, 2, 0, 16)
+            tabIndicator.BackgroundTransparency = 1
+
             tabButton.MouseButton1Click:Connect(function()
                 for i,v in next, allPages:GetChildren() do
                     v.Visible = false
@@ -296,32 +315,39 @@ function Library:Window(options)
 
                 newPage.Visible = true
 
-                for i,v in next, SideBar:GetDescendants() do
-                    if v:IsA("TextButton") then
-                        TweenService:Create(v, TweenInfo.new(0.06, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+                for i,v in next, tabSection.Parent:GetDescendants() do
+                    if v.Name == "tabButton" then
+                        TweenService:Create(v, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                            BackgroundTransparency = 1,
+                            TextColor3 = Theme.Text
+                        }):Play()
+                        TweenService:Create(v.tabIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
                             BackgroundTransparency = 1
                         }):Play()
                     end
                 end
 
-                TweenService:Create(tabButton, TweenInfo.new(0.06, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+                TweenService:Create(tabButton, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                    BackgroundTransparency = 0.9,
+                    TextColor3 = Theme.TextHigh
+                }):Play()
+                TweenService:Create(tabIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
                     BackgroundTransparency = 0
                 }):Play()
             end)
 
-            tabButtonCorner.CornerRadius = UDim.new(0, 4)
+            tabButtonCorner.CornerRadius = UDim.new(0, 6)
             tabButtonCorner.Name = "tabButtonCorner"
             tabButtonCorner.Parent = tabButton
 
             tabIcon.Name = "tabIcon"
             tabIcon.Parent = tabButton
-            tabIcon.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
             tabIcon.BackgroundTransparency = 1.000
             tabIcon.BorderSizePixel = 0
-            tabIcon.Position = UDim2.new(0.0408859849, 0, 0.133333355, 0)
-            tabIcon.Size = UDim2.new(0, 21, 0, 21)
+            tabIcon.Position = UDim2.new(0, 10, 0.5, -9)
+            tabIcon.Size = UDim2.new(0, 18, 0, 18)
             tabIcon.Image = options.icon
-            tabIcon.ImageColor3 = Color3.fromRGB(43, 154, 198)
+            tabIcon.ImageColor3 = Theme.Accent
 
             newPage.Name = "newPage"
             newPage.Parent = allPages
@@ -360,10 +386,19 @@ function Library:Window(options)
 
                 sectionFrame.Name = "sectionFrame"
                 sectionFrame.Parent = newPage
-                sectionFrame.BackgroundColor3 = Color3.fromRGB(0, 15, 30)
+                sectionFrame.BackgroundColor3 = Theme.Section
                 sectionFrame.BorderSizePixel = 0
                 sectionFrame.ClipsDescendants = false
-                sectionFrame.Size = UDim2.new(0, 215, 0, 134)
+                sectionFrame.Size = UDim2.new(0, 210, 0, 134)
+
+                sectionFrameCorner.CornerRadius = UDim.new(0, 8)
+                sectionFrameCorner.Name = "sectionFrameCorner"
+                sectionFrameCorner.Parent = sectionFrame
+                
+                local sectionStroke = Instance.new("UIStroke")
+                sectionStroke.Color = Theme.Border
+                sectionStroke.Thickness = 1
+                sectionStroke.Parent = sectionFrame
 
                 sectionLabel.Name = "sectionLabel"
                 sectionLabel.Parent = sectionFrame
@@ -468,17 +503,15 @@ function Library:Window(options)
                     local function PerformToggle()
                         State = not State
                         options.callback(State)
-                        TweenService:Create(toggleButton, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.InOut), {
-                            Position = State and UDim2.new(0.74, 0, 0.5, 0) or UDim2.new(0.25, 0, 0.5, 0)
+                        TweenService:Create(toggleButton, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+                            Position = State and UDim2.new(0.7, 0, 0.5, 0) or UDim2.new(0.3, 0, 0.5, 0),
+                            BackgroundColor3 = State and Color3.new(1,1,1) or Color3.fromRGB(150, 150, 150)
                         }):Play()
-                        TweenService:Create(toggleLabel, TweenInfo.new(0.06, Enum.EasingStyle.Quart, Enum.EasingDirection.InOut), {
-                            TextColor3 = State and Color3.fromRGB(234, 239, 246) or Color3.fromRGB(157, 171, 182)
+                        TweenService:Create(toggleLabel, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                            TextColor3 = State and Theme.TextHigh or Theme.Text
                         }):Play()
-                        TweenService:Create(toggleButton, TweenInfo.new(0.06, Enum.EasingStyle.Quart, Enum.EasingDirection.InOut), {
-                            BackgroundColor3 = State and Color3.fromRGB(2, 162, 243) or Color3.fromRGB(77, 77, 77)
-                        }):Play()
-                        TweenService:Create(toggleFrame, TweenInfo.new(0.06, Enum.EasingStyle.Quart, Enum.EasingDirection.InOut), {
-                            BackgroundColor3 = State and Color3.fromRGB(2, 23, 49) or Color3.fromRGB(4, 4, 11)
+                        TweenService:Create(toggleFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                            BackgroundColor3 = State and Theme.Accent or Color3.fromRGB(30, 30, 35)
                         }):Play()
                     end
 
@@ -587,21 +620,22 @@ function Library:Window(options)
 
                     sliderFrame.Name = "sliderFrame"
                     sliderFrame.Parent = sliderLabel
-                    sliderFrame.BackgroundColor3 = Color3.fromRGB(29, 87, 118)
+                    sliderFrame.BackgroundColor3 = Theme.SideBar
                     sliderFrame.BorderSizePixel = 0
                     sliderFrame.AnchorPoint = Vector2.new(0.5, 0.5)
                     sliderFrame.Position = UDim2.new(1.6, 0, 0.5, 0)
-                    sliderFrame.Size = UDim2.new(0, 72, 0, 2)
+                    sliderFrame.Size = UDim2.new(0, 72, 0, 4)
                     sliderFrame.Text = ""
                     sliderFrame.AutoButtonColor = false
-                    sliderFrame.MouseButton1Down:Connect(function()
-                        Held = true
-                    end)
+                    
+                    local sfCorner = Instance.new("UICorner")
+                    sfCorner.CornerRadius = UDim.new(0, 8)
+                    sfCorner.Parent = sliderFrame
 
                     sliderBall.Name = "sliderBall"
                     sliderBall.Parent = sliderFrame
                     sliderBall.AnchorPoint = Vector2.new(0.5, 0.5)
-                    sliderBall.BackgroundColor3 = Color3.fromRGB(67, 136, 231)
+                    sliderBall.BackgroundColor3 = Theme.Accent
                     sliderBall.BorderSizePixel = 0
                     sliderBall.Position = UDim2.new(0, 0, 0.5, 0)
                     sliderBall.Size = UDim2.new(0, 14, 0, 14)
@@ -610,7 +644,17 @@ function Library:Window(options)
                     sliderBall.Text = ""
                     sliderBall.TextColor3 = Color3.fromRGB(0, 0, 0)
                     sliderBall.TextSize = 14.000
+                    
+                    local sbStroke = Instance.new("UIStroke")
+                    sbStroke.Color = Theme.Border
+                    sbStroke.Thickness = 1
+                    sbStroke.Parent = sliderBall
+
                     sliderBall.MouseButton1Down:Connect(function()
+                        Held = true
+                    end)
+
+                    sliderFrame.MouseButton1Down:Connect(function()
                         Held = true
                     end)
 
@@ -711,15 +755,23 @@ function Library:Window(options)
 
                     dropdownText.Name = "dropdownText"
                     dropdownText.Parent = dropdownLabel
-                    dropdownText.BackgroundColor3 = Color3.fromRGB(2, 5, 12)
+                    dropdownText.BackgroundColor3 = Theme.SideBar
                     dropdownText.Position = UDim2.new(1.08571434, 0, 0.0909090936, 0)
                     dropdownText.Size = UDim2.new(0, 87, 0, 18)
                     dropdownText.Font = Enum.Font.Gotham
                     dropdownText.Text = " " .. options.default
-                    dropdownText.TextColor3 = Color3.fromRGB(234, 239, 245)
+                    dropdownText.TextColor3 = Theme.TextHigh
                     dropdownText.TextSize = 12.000
                     dropdownText.TextXAlignment = Enum.TextXAlignment.Left
                     dropdownText.TextWrapped = true
+                    
+                    local dtUIC = Instance.new("UICorner")
+                    dtUIC.CornerRadius = UDim.new(0, 4)
+                    dtUIC.Parent = dropdownText
+                    
+                    local dtStroke = Instance.new("UIStroke")
+                    dtStroke.Color = Theme.Border
+                    dtStroke.Parent = dropdownText
 
                     dropdownArrow.Name = "dropdownArrow"
                     dropdownArrow.Parent = dropdownText
@@ -767,17 +819,24 @@ function Library:Window(options)
 
                     dropdownList.Name = "dropdownList"
                     dropdownList.Parent = dropdownText
-                    dropdownList.BackgroundColor3 = Color3.fromRGB(2, 5, 12)
-                    dropdownList.Position = UDim2.new(0, 0, 1, 0)
+                    dropdownList.BackgroundColor3 = Theme.SideBar
+                    dropdownList.Position = UDim2.new(0, 0, 1, 5)
                     dropdownList.Size = UDim2.new(0, 87, 0, 0)
                     dropdownList.ClipsDescendants = true
-                    dropdownList.BorderSizePixel = 1
-                    dropdownList.BorderColor3 = Color3.fromRGB(25, 35, 45)
+                    dropdownList.BorderSizePixel = 0
                     dropdownList.ZIndex = 100
                     dropdownList.Active = true
                     dropdownList.ScrollBarThickness = 4
                     dropdownList.CanvasSize = UDim2.new(0, 0, 0, 0)
-                    dropdownList.ScrollBarImageColor3 = Color3.fromRGB(43, 154, 198)
+                    dropdownList.ScrollBarImageColor3 = Theme.Accent
+                    
+                    local dlStroke = Instance.new("UIStroke")
+                    dlStroke.Color = Theme.Border
+                    dlStroke.Parent = dropdownList
+                    
+                    local dlCorner = Instance.new("UICorner")
+                    dlCorner.CornerRadius = UDim.new(0, 4)
+                    dlCorner.Parent = dropdownList
 
                     dropListLayout.Name = "dropListLayout"
                     dropListLayout.Parent = dropdownList
@@ -935,11 +994,21 @@ function Library:Window(options)
                     colorpickerFrame.Name = "colorpickerFrame"
                     colorpickerFrame.Parent = Colorpicker
                     colorpickerFrame.Visible = false
-                    colorpickerFrame.BackgroundColor3 = Color3.fromRGB(0, 10, 21)
+                    colorpickerFrame.BackgroundColor3 = Theme.SideBar
                     colorpickerFrame.Position = UDim2.new(1.15, 0, 0.5, 0)
                     colorpickerFrame.Size = UDim2.new(0, 251, 0, 221)
                     colorpickerFrame.ZIndex = 15
-                    Dragify(colorpickerFrame, Colorpicker)
+                    
+                    local cpCorner = Instance.new("UICorner")
+                    cpCorner.CornerRadius = UDim.new(0, 8)
+                    cpCorner.Parent = colorpickerFrame
+                    
+                    local cpStroke = Instance.new("UIStroke")
+                    cpStroke.Color = Theme.Border
+                    cpStroke.Thickness = 1.5
+                    cpStroke.Parent = colorpickerFrame
+                    
+                    Dragify(colorpickerFrame, colorpickerFrame)
 
                     RGB.Name = "RGB"
                     RGB.Parent = colorpickerFrame
