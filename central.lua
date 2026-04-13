@@ -228,16 +228,16 @@ function Library:Window(options)
     allPages.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
     allPages.BackgroundTransparency = 1.000
     allPages.BorderSizePixel = 0
-    allPages.Position = UDim2.new(0.29508087, 0, 0.100775197, 0)
-    allPages.Size = UDim2.new(0, 463, 0, 464)
+    allPages.Position = UDim2.new(0, 180, 0, 50)
+    allPages.Size = UDim2.new(1, -180, 1, -50)
 
     tabContainer.Name = "tabContainer"
     tabContainer.Parent = SideBar
     tabContainer.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
     tabContainer.BackgroundTransparency = 1.000
     tabContainer.BorderSizePixel = 0
-    tabContainer.Position = UDim2.new(0, 0, 0.100775197, 0)
-    tabContainer.Size = UDim2.new(0, 187, 0, 464)
+    tabContainer.Position = UDim2.new(0, 0, 0, 100)
+    tabContainer.Size = UDim2.new(1, 0, 1, -100)
 
     local tabsections = {}
 
@@ -270,10 +270,10 @@ function Library:Window(options)
         tabSectionLabel.BorderSizePixel = 0
         tabSectionLabel.Size = UDim2.new(1, 0, 0, 22)
         tabSectionLabel.Font = Enum.Font.GothamBold
-        tabSectionLabel.Text = "    " .. options.text:upper()
+        tabSectionLabel.Text = options.text:upper()
         tabSectionLabel.TextColor3 = Theme.Text:lerp(Color3.new(0,0,0), 0.2)
         tabSectionLabel.TextSize = 12.000
-        tabSectionLabel.TextXAlignment = Enum.TextXAlignment.Left
+        tabSectionLabel.TextXAlignment = Enum.TextXAlignment.Center
 
         tabSectionLayout.Name = "tabSectionLayout"
         tabSectionLayout.Parent = tabSection
@@ -364,8 +364,8 @@ function Library:Window(options)
             newPage.BackgroundTransparency = 1.000
             newPage.BorderSizePixel = 0
             newPage.ClipsDescendants = false
-            newPage.Position = UDim2.new(0.021598272, 0, 0.0237068962, 0)
-            newPage.Size = UDim2.new(0, 442, 0, 440)
+            newPage.Position = UDim2.new(0, 10, 0, 10)
+            newPage.Size = UDim2.new(1, -20, 1, -20)
             newPage.ScrollBarThickness = 4
             newPage.CanvasSize = UDim2.new(0,0,0,0)
 
