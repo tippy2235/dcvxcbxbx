@@ -279,7 +279,7 @@ function Library:Window(options)
         tabSectionLayout.Parent = tabSection
         tabSectionLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
         tabSectionLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        tabSectionLayout.Padding = UDim.new(0, 4)
+        tabSectionLayout.Padding = UDim.new(0, 6)
 
         local tabs = {}
 
@@ -308,7 +308,7 @@ function Library:Window(options)
             tabButton.TextXAlignment = Enum.TextXAlignment.Left
             
             local tbPadding = Instance.new("UIPadding")
-            tbPadding.PaddingLeft = UDim.new(0, 35)
+            tbPadding.PaddingLeft = UDim.new(0, 25)
             tbPadding.Parent = tabButton
             
             local tabIndicator = Instance.new("Frame")
@@ -385,10 +385,10 @@ function Library:Window(options)
             pageLayout.Name = "pageLayout"
             pageLayout.Parent = newPage
             pageLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            pageLayout.CellPadding = UDim2.new(0, 12, 0, 12)
-            pageLayout.CellSize = UDim2.new(0, 215, 0, -10)
+            pageLayout.CellPadding = UDim2.new(0, 15, 0, 15)
+            pageLayout.CellSize = UDim2.new(0, 215, 0, 320)
             pageLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-                newPage.CanvasSize = UDim2.new(0,0,0,pageLayout.AbsoluteContentSize.Y) 
+                newPage.CanvasSize = UDim2.new(0,0,0,pageLayout.AbsoluteContentSize.Y + 20) 
             end)
 
             ResizeTS(50)
