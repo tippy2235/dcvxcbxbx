@@ -236,8 +236,8 @@ function Library:Window(options)
     tabContainer.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
     tabContainer.BackgroundTransparency = 1.000
     tabContainer.BorderSizePixel = 0
-    tabContainer.Position = UDim2.new(0, 0, 0, 80)
-    tabContainer.Size = UDim2.new(1, 0, 1, -80)
+    tabContainer.Position = UDim2.new(0, 0, 0, 60)
+    tabContainer.Size = UDim2.new(1, 0, 1, -60)
 
     local tabsections = {}
 
@@ -268,17 +268,16 @@ function Library:Window(options)
         tabSectionLabel.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
         tabSectionLabel.BackgroundTransparency = 1.000
         tabSectionLabel.BorderSizePixel = 0
-        tabSectionLabel.Position = UDim2.new(0, 15, 0, 0)
-        tabSectionLabel.Size = UDim2.new(1, -15, 0, 22)
+        tabSectionLabel.Size = UDim2.new(1, 0, 0, 22)
         tabSectionLabel.Font = Enum.Font.GothamBold
         tabSectionLabel.Text = options.text:upper()
-        tabSectionLabel.TextColor3 = Theme.Accent
-        tabSectionLabel.TextSize = 11.000
-        tabSectionLabel.TextXAlignment = Enum.TextXAlignment.Left
+        tabSectionLabel.TextColor3 = Theme.Text
+        tabSectionLabel.TextSize = 13.000
+        tabSectionLabel.TextXAlignment = Enum.TextXAlignment.Center
 
         tabSectionLayout.Name = "tabSectionLayout"
         tabSectionLayout.Parent = tabSection
-        tabSectionLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+        tabSectionLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
         tabSectionLayout.SortOrder = Enum.SortOrder.LayoutOrder
         tabSectionLayout.Padding = UDim.new(0, 4)
 
