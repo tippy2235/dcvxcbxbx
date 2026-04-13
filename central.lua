@@ -316,12 +316,9 @@ function Library:Window(options)
             tabIndicator.Parent = tabButton
             tabIndicator.BackgroundColor3 = Theme.Accent
             tabIndicator.BorderSizePixel = 0
-            tabIndicator.Position = UDim2.new(0, 0, 0.5, -10)
-            tabIndicator.Size = UDim2.new(0, 2, 0, 20)
+            tabIndicator.Position = UDim2.new(0, 5, 0.5, -8)
+            tabIndicator.Size = UDim2.new(0, 2, 0, 16)
             tabIndicator.BackgroundTransparency = 1
-            
-            local blinkInfo = TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
-            local blink = TweenService:Create(tabIndicator, blinkInfo, {BackgroundTransparency = 0.4})
 
             tabButton.MouseButton1Click:Connect(function()
                 for i,v in next, allPages:GetChildren() do
@@ -336,13 +333,9 @@ function Library:Window(options)
                             BackgroundTransparency = 1,
                             TextColor3 = Theme.Text
                         }):Play()
-                        local otherIndicator = v:FindFirstChild("tabIndicator")
-                        if otherIndicator then
-                            TweenService:Create(otherIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
-                                BackgroundTransparency = 1
-                            }):Play()
-                            -- Find and stop the blink tween if possible, or just let the transparency win
-                        end
+                        TweenService:Create(v.tabIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                            BackgroundTransparency = 1
+                        }):Play()
                     end
                 end
 
@@ -350,11 +343,9 @@ function Library:Window(options)
                     BackgroundTransparency = 0.9,
                     TextColor3 = Theme.TextHigh
                 }):Play()
-                
                 TweenService:Create(tabIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
                     BackgroundTransparency = 0
                 }):Play()
-                blink:Play()
             end)
 
             tabButtonCorner.CornerRadius = UDim.new(0, 6)
@@ -538,7 +529,7 @@ function Library:Window(options)
 
                     toggleFrame.Name = "toggleFrame"
                     toggleFrame.Parent = toggleLabel
-                    toggleFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+                    toggleFrame.BackgroundColor3 = Color3.fromRGB(4, 4, 11)
                     toggleFrame.BorderSizePixel = 0
                     toggleFrame.AnchorPoint = Vector2.new(0.5, 0.5)
                     toggleFrame.Position = UDim2.new(0.9, 0, 0.5, 0)
@@ -548,12 +539,6 @@ function Library:Window(options)
                     toggleFrame.Text = ""
                     toggleFrame.TextColor3 = Color3.fromRGB(0, 0, 0)
                     toggleFrame.TextSize = 14.000
-                    
-                    local tfStroke = Instance.new("UIStroke")
-                    tfStroke.Color = Theme.Border
-                    tfStroke.Thickness = 1
-                    tfStroke.Parent = toggleFrame
-                    
                     toggleFrame.MouseButton1Click:Connect(function()
                         PerformToggle()
                     end)
@@ -564,11 +549,11 @@ function Library:Window(options)
 
                     toggleButton.Name = "toggleButton"
                     toggleButton.Parent = toggleFrame
-                    toggleButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+                    toggleButton.BackgroundColor3 = Color3.fromRGB(77, 77, 77)
                     toggleButton.BorderSizePixel = 0
                     toggleButton.AnchorPoint = Vector2.new(0.5, 0.5)
-                    toggleButton.Position = UDim2.new(0.3, 0, 0.5, 0)
-                    toggleButton.Size = UDim2.new(0, 12, 0, 12)
+                    toggleButton.Position = UDim2.new(0.25, 0, 0.5, 0)
+                    toggleButton.Size = UDim2.new(0, 16, 0, 16)
                     toggleButton.AutoButtonColor = false
                     toggleButton.Font = Enum.Font.SourceSans
                     toggleButton.Text = ""
@@ -582,12 +567,7 @@ function Library:Window(options)
                     togBtnCorner.Name = "togFrameCorner"
                     togBtnCorner.Parent = toggleButton
 
-                    if options.state then
-                        toggleButton.Position = UDim2.new(0.7, 0, 0.5, 0)
-                        toggleLabel.TextColor3 = Theme.TextHigh
-                        toggleButton.BackgroundColor3 = Color3.new(1, 1, 1)
-                        toggleFrame.BackgroundColor3 = Theme.Accent
-                    end
+                    Resize(25)
                 end
 
                 function elements:Slider(options)
