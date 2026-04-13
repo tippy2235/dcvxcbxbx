@@ -257,7 +257,7 @@ function Library:Window(options)
         tabSection.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
         tabSection.BackgroundTransparency = 1.000
         tabSection.BorderSizePixel = 0
-        tabSection.Size = UDim2.new(0, 189, 0, 22)
+        tabSection.Size = UDim2.new(1, 0, 0, 22)
 
         local function ResizeTS(num)
             tabSection.Size += UDim2.new(0, 0, 0, num)
@@ -268,13 +268,12 @@ function Library:Window(options)
         tabSectionLabel.BackgroundColor3 = Color3.fromRGB(234, 239, 245)
         tabSectionLabel.BackgroundTransparency = 1.000
         tabSectionLabel.BorderSizePixel = 0
-        tabSectionLabel.Position = UDim2.new(0, 15, 0, 0)
-        tabSectionLabel.Size = UDim2.new(1, -15, 0, 22)
+        tabSectionLabel.Size = UDim2.new(1, 0, 0, 22)
         tabSectionLabel.Font = Enum.Font.GothamBold
         tabSectionLabel.Text = options.text:upper()
         tabSectionLabel.TextColor3 = Theme.Text
-        tabSectionLabel.TextSize = 14.000
-        tabSectionLabel.TextXAlignment = Enum.TextXAlignment.Left
+        tabSectionLabel.TextSize = 13.000
+        tabSectionLabel.TextXAlignment = Enum.TextXAlignment.Center
 
         tabSectionLayout.Name = "tabSectionLayout"
         tabSectionLayout.Parent = tabSection
