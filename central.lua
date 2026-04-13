@@ -316,9 +316,12 @@ function Library:Window(options)
             tabIndicator.Parent = tabButton
             tabIndicator.BackgroundColor3 = Theme.Accent
             tabIndicator.BorderSizePixel = 0
-            tabIndicator.Position = UDim2.new(0, 5, 0.5, -8)
-            tabIndicator.Size = UDim2.new(0, 2, 0, 16)
+            tabIndicator.Position = UDim2.new(0, 0, 0.5, -10)
+            tabIndicator.Size = UDim2.new(0, 2, 0, 20)
             tabIndicator.BackgroundTransparency = 1
+            
+            local blinkInfo = TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+            local blink = TweenService:Create(tabIndicator, blinkInfo, {BackgroundTransparency = 0.4})
 
             tabButton.MouseButton1Click:Connect(function()
                 for i,v in next, allPages:GetChildren() do
@@ -333,9 +336,13 @@ function Library:Window(options)
                             BackgroundTransparency = 1,
                             TextColor3 = Theme.Text
                         }):Play()
-                        TweenService:Create(v.tabIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
-                            BackgroundTransparency = 1
-                        }):Play()
+                        local otherIndicator = v:FindFirstChild("tabIndicator")
+                        if otherIndicator then
+                            TweenService:Create(otherIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = 1
+                            }):Play()
+                            -- Find and stop the blink tween if possible, or just let the transparency win
+                        end
                     end
                 end
 
@@ -343,9 +350,11 @@ function Library:Window(options)
                     BackgroundTransparency = 0.9,
                     TextColor3 = Theme.TextHigh
                 }):Play()
+                
                 TweenService:Create(tabIndicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
                     BackgroundTransparency = 0
                 }):Play()
+                blink:Play()
             end)
 
             tabButtonCorner.CornerRadius = UDim.new(0, 6)
